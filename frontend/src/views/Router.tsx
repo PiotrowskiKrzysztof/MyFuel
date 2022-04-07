@@ -1,11 +1,12 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { HomeScreen, ProfileScreen } from '../../views';
+import { HomeScreen } from './HomeScreen';
+import { ProfileScreen } from './ProfileScreen';
 
 const Stack = createNativeStackNavigator();
 
-const Navigation: React.FC = () => (
+const Router: React.FC = () => (
   <NavigationContainer>
     <Stack.Navigator>
       <Stack.Screen
@@ -22,4 +23,4 @@ const Navigation: React.FC = () => (
   </NavigationContainer>
 );
 
-export default Navigation;
+export default Router;

@@ -15,7 +15,7 @@ const HomeScreen = ({ navigation }: Props) => {
   return (
     <Page>
       <Text style={styles.text} category="h1">
-        Welcome to UI Kitten 😻.
+        Welcome to UI Kitten 😻..
       </Text>
       <Text style={styles.text} category="s1">
         Start with editing App.tsx to configure your App
