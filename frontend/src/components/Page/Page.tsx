@@ -1,17 +1,18 @@
-import { Layout } from '@ui-kitten/components';
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { Layout, StyleService, useStyleSheet } from '@ui-kitten/components';
 
-const Page: React.FC = ({ children }) => (
-  <Layout style={styles.container}>{children}</Layout>
-);
+const Page: React.FC = ({ children }) => {
+  const styles = useStyleSheet(themedStyles);
 
-// TODO: Make it more generic later
-const styles = StyleSheet.create({
+  return <Layout style={styles.container}>{children}</Layout>
+}
+
+const themedStyles = StyleService.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'color-basic-200',
+    padding: 16,
   },
 });
 

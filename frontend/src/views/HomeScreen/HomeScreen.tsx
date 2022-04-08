@@ -1,6 +1,6 @@
-import React from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Button, Icon, Text } from '@ui-kitten/components';
+import React from 'react';
 import { ImageProps, StyleSheet } from 'react-native';
 import { Page } from '../../components';
 import { RootStackParamList } from '../../utils/types';
