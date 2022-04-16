@@ -9,10 +9,11 @@ const Page: React.FC = ({ children }) => {
 
 const themedStyles = StyleService.create({
   container: {
+    display: "flex",
     flex: 1,
     alignItems: 'center',
     backgroundColor: 'color-basic-200',
-    padding: 16,
+    padding: 32,
   },
 });
 

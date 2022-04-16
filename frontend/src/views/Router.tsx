@@ -3,6 +3,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { HomeScreen } from './HomeScreen';
 import { ProfileScreen } from './ProfileScreen';
+import { SettingsScreen } from './SettingsScreen';
+import { AuthenticationScreen } from './AuthenticationScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -17,6 +19,16 @@ const Router: React.FC = () => (
       <Stack.Screen
         name="Profile"
         component={ProfileScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Settings"
+        component={SettingsScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Login"
+        component={AuthenticationScreen}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
