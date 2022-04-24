@@ -36,7 +36,7 @@ const Panel: React.FC<Props> = ({ children, title, gap = 16 }) => {
 const styles = StyleSheet.create({
   header: {
     textAlign: 'left',
-    marginBottom: 16,
+    marginBottom: 32,
   },
   panel: {
     borderRadius: 8,

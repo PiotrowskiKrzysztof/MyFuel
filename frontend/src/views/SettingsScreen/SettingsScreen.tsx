@@ -1,27 +1,47 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { Page, Panel } from '../../components';
+import { Icon } from '@ui-kitten/components';
+import React, { useContext } from 'react';
+import { ImageProps, View } from 'react-native';
+import { Page, Panel, ToggleButtom } from '../../components';
+import { ThemeContext } from '../../utils/theme.context';
 import { RootStackParamList } from '../../utils/types';
 
-type Inputs = {
-  example: string;
-};
+const StarIcon = (props?: Partial<ImageProps>) => (
+  <Icon {...props} name="star" />
+);
+const MoonIcon = (props?: Partial<ImageProps>) => (
+  <Icon {...props} name="moon" />
+);
+const SunIcon = (props?: Partial<ImageProps>) => <Icon {...props} name="sun" />;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Settings'>;
 
 const SettingsScreen = ({ route }: Props) => {
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<Inputs>();
+  const { toggleTheme } = useContext(ThemeContext);
+  // TODO: const [isDialogOpen, setDialog] = useDialog();
 
-  const onSubmit: SubmitHandler<Inputs> = data => console.log(data);
+  const handleDialog = (toggleState: boolean) => {
+    // TODO
+  };
 
   return (
     <Page>
-      <Panel title="Settings Form">{/* TODO */}</Panel>
+      <Panel title="Settings Form">
+        <View>
+          <ToggleButtom
+            value="get premium"
+            icons={[StarIcon, StarIcon]}
+            onPress={handleDialog}
+          />
+        </View>
+        <View>
+          <ToggleButtom
+            value="change theme"
+            icons={[MoonIcon, SunIcon]}
+            onPress={toggleTheme}
+          />
+        </View>
+      </Panel>
     </Page>
   );
 };

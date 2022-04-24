@@ -4,7 +4,7 @@ import { Layout, StyleService, useStyleSheet } from '@ui-kitten/components';
 const Page: React.FC = ({ children }) => {
   const styles = useStyleSheet(themedStyles);
 
-  return <Layout style={styles.container}>{children}</Layout>
+  return <Layout level="2" style={styles.container}>{children}</Layout>
 }
 
 const themedStyles = StyleService.create({
@@ -12,7 +12,6 @@ const themedStyles = StyleService.create({
     display: "flex",
     flex: 1,
     alignItems: 'center',
-    backgroundColor: 'color-basic-200',
     padding: 32,
   },
 });
