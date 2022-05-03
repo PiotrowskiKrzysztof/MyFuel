@@ -5,10 +5,12 @@ import {
 import {
   Button,
   Icon,
-  Layout
+  Layout,
+  StyleService,
+  useStyleSheet
 } from '@ui-kitten/components';
 import React from 'react';
-import { Dimensions, ImageProps, StyleSheet, View } from 'react-native';
+import { Dimensions, ImageProps, View } from 'react-native';
 import { RootStackParamList } from '../../utils/types';
 
 const HomeIcon = (props?: Partial<ImageProps>) => (
@@ -42,6 +44,7 @@ const getActiveRoute =
     routeName === currentRoute ? 'filled' : 'ghost';
 
 const BottomNavigation = ({ navigation, route }: Props) => {
+  const styles = useStyleSheet(themedStyles);
   const isActiveRoute = getActiveRoute(route.name);
   return (
     <Layout style={styles.navigation}>
@@ -62,6 +65,7 @@ const BottomNavigation = ({ navigation, route }: Props) => {
       <View style={styles.space} />
       <Button
         style={styles.scanButton}
+        appearance={isActiveRoute('Scan')}
         onPress={() => navigation.navigate('Settings')}
         accessoryLeft={QrIcon}
       />
@@ -83,7 +87,7 @@ const BottomNavigation = ({ navigation, route }: Props) => {
   );
 };
 
-const styles = StyleSheet.create({
+const themedStyles = StyleService.create({
   navigation: {
     position: 'absolute',
     bottom: 0,
@@ -108,9 +112,12 @@ const styles = StyleSheet.create({
     zIndex: 100,
     flex: 1,
     borderRadius: 100,
+    backgroundColor: "background-basic-color-1",
+    borderColor: "color-primary-default"
   },
   navigatorButton: {
     margin: 10,
+    width: 50,
   },
   buttonGroup: {},
 });

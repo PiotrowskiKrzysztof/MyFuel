@@ -13,7 +13,7 @@ const FormFooter: React.FC<FormFooterProps> = ({
   children,
 }) => (
   <View style={styles.footerContainer}>
-    {children}
+    <View>{children}</View>
     <View style={styles.buttonContainer}>
       {onCancel && (
         <Button
@@ -39,11 +39,11 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    alignItems: "center",
+    alignItems: 'center',
   },
   footerControl: {
     marginHorizontal: 2,
-    height: 40
+    height: 40,
   },
 });
 
