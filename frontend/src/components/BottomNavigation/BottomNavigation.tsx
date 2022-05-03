@@ -4,7 +4,8 @@ import {
 } from '@react-navigation/native-stack';
 import {
   Button,
-  Icon
+  Icon,
+  Layout
 } from '@ui-kitten/components';
 import React from 'react';
 import { Dimensions, ImageProps, StyleSheet, View } from 'react-native';
@@ -43,7 +44,7 @@ const getActiveRoute =
 const BottomNavigation = ({ navigation, route }: Props) => {
   const isActiveRoute = getActiveRoute(route.name);
   return (
-    <View style={styles.navigation}>
+    <Layout style={styles.navigation}>
       <View style={styles.row}>
         <Button
           style={styles.navigatorButton}
@@ -78,7 +79,7 @@ const BottomNavigation = ({ navigation, route }: Props) => {
           accessoryLeft={SettingsIcon}
         />
       </View>
-    </View>
+    </Layout>
   );
 };
 
@@ -89,14 +90,6 @@ const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    backgroundColor: '#fff',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 12,
-    },
-    shadowOpacity: 0.58,
-    shadowRadius: 16.0,
     elevation: 24,
   },
   space: {
