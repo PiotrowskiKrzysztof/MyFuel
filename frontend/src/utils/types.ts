@@ -6,3 +6,5 @@ export type RootStackParamList = {
   Scan: undefined;
   Profile: { name: string };
 };
+
+export type HeaderVariant = 'authenticated' | 'unauthenticated';

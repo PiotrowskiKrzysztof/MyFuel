@@ -28,7 +28,7 @@ const AuthenticationScreen = ({ navigation, route }: Props) => {
   const onSubmit: SubmitHandler<Inputs> = data => console.log(data);
 
   return (
-    <Page navigation={navigation} route={route}>
+    <Page navigation={navigation} route={route} headerVariant="unauthenticated">
       <Panel title="Login">
         <Input
           name="example"

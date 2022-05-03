@@ -4,16 +4,18 @@ import { StyleSheet, View } from 'react-native';
 import { Shadow } from 'react-native-shadow-2';
 import { useChildStyle } from '../../hooks';
 
-type Props = {
+type Props = { 
+  viewDescription?: string;
   title?: string;
   gap?: number;
 };
 
-const Panel: React.FC<Props> = ({ children, title, gap = 16 }) => {
+const Panel: React.FC<Props> = ({ children, title, viewDescription, gap = 16 }) => {
   const styledChildren = useChildStyle(children, { marginBottom: gap });
 
   return (
     <View style={styles.stretch}>
+      <Text style={styles.description}>{"viewDescription"}</Text>
       <Shadow
         distance={6}
         radius={8}
@@ -37,10 +39,15 @@ const styles = StyleSheet.create({
   header: {
     textAlign: 'left',
     marginBottom: 32,
+    fontWeight: "700",
+  },
+  description: {
+    paddingBottom: 16,
   },
   panel: {
     borderRadius: 8,
-    padding: 16,
+    paddingVertical: 16,
+    paddingHorizontal: 32,
   },
   stretch: {
     width: '100%',

@@ -2,9 +2,10 @@ import React from 'react';
 import { Layout, StyleService, useStyleSheet } from '@ui-kitten/components';
 import { BottomNavigation } from '../BottomNavigation';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../utils/types';
+import { HeaderVariant, RootStackParamList } from '../../utils/types';
 import { RouteProp } from '@react-navigation/native';
 import { View } from 'react-native';
+import { Header } from '../Header';
 
 type Props = {
   navigation: NativeStackNavigationProp<
@@ -13,13 +14,19 @@ type Props = {
     undefined
   >;
   route: RouteProp<RootStackParamList>;
+  headerVariant?: HeaderVariant;
 };
 
-const Page: React.FC<Props> = ({ navigation, route, children }) => {
+const Page: React.FC<Props> = ({
+  navigation,
+  route,
+  headerVariant,
+  children,
+}) => {
   const styles = useStyleSheet(themedStyles);
-
   return (
     <Layout level="2" style={styles.layout}>
+      <Header variant={headerVariant}/>
       <View style={styles.container}>{children}</View>
       <BottomNavigation navigation={navigation} route={route} />
     </Layout>
@@ -28,13 +35,14 @@ const Page: React.FC<Props> = ({ navigation, route, children }) => {
 
 const themedStyles = StyleService.create({
   layout: {
-    flex: 1
+    flex: 1,
   },
   container: {
     display: 'flex',
     flex: 1,
     alignItems: 'center',
-    padding: 32,
+    paddingVertical: 16,
+    paddingHorizontal: 32,
   },
 });
 
