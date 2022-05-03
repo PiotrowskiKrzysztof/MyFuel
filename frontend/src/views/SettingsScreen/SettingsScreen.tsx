@@ -16,7 +16,7 @@ const SunIcon = (props?: Partial<ImageProps>) => <Icon {...props} name="sun" />;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Settings'>;
 
-const SettingsScreen = ({ route }: Props) => {
+const SettingsScreen = ({ navigation, route }: Props) => {
   const { toggleTheme } = useContext(ThemeContext);
   // TODO: const [isDialogOpen, setDialog] = useDialog();
 
@@ -25,7 +25,7 @@ const SettingsScreen = ({ route }: Props) => {
   };
 
   return (
-    <Page>
+    <Page navigation={navigation} route={route}>
       <Panel title="Settings Form">
         <View>
           <ToggleButtom

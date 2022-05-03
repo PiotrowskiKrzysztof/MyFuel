@@ -16,9 +16,9 @@ type Inputs = {
   password: string;
 };
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Settings'>;
+type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 
-const AuthenticationScreen = ({ route }: Props) => {
+const AuthenticationScreen = ({ navigation, route }: Props) => {
   const {
     control,
     handleSubmit,
@@ -28,7 +28,7 @@ const AuthenticationScreen = ({ route }: Props) => {
   const onSubmit: SubmitHandler<Inputs> = data => console.log(data);
 
   return (
-    <Page>
+    <Page navigation={navigation} route={route}>
       <Panel title="Login">
         <Input
           name="example"

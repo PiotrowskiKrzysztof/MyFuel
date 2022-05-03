@@ -6,9 +6,9 @@ import { RootStackParamList } from '../../utils/types';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Profile'>;
 
-const ProfileScreen = ({ route }: Props) => {
+const ProfileScreen = ({ route, navigation }: Props) => {
   return (
-    <Page>
+    <Page navigation={navigation} route={route}>
       <Panel title='Profile'>
         {/* TODO: Temporary data, remove it later */}
         <Text>This is {route.params.name}'s profile | Some longer text lorem ipsum</Text>

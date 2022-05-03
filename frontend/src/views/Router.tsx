@@ -5,6 +5,7 @@ import { HomeScreen } from './HomeScreen';
 import { ProfileScreen } from './ProfileScreen';
 import { SettingsScreen } from './SettingsScreen';
 import { AuthenticationScreen } from './AuthenticationScreen';
+import { StatisticsScreen } from './StatisticsScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -29,6 +30,11 @@ const Router: React.FC = () => (
       <Stack.Screen
         name="Login"
         component={AuthenticationScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Statistics"
+        component={StatisticsScreen}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

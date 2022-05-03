@@ -9,11 +9,11 @@ const HeartIcon = (
   props?: Partial<ImageProps>,
 ): React.ReactElement<ImageProps> => <Icon {...props} name="heart" />;
 
-type Props = NativeStackScreenProps<RootStackParamList>;
+type Props = NativeStackScreenProps<RootStackParamList, "Home">;
 
-const HomeScreen = ({ navigation }: Props) => {
+const HomeScreen = ({ navigation, route }: Props) => {
   return (
-    <Page>
+    <Page navigation={navigation} route={route}>
       <Text style={styles.text} category="h1">
         Welcome to UI Kitten 😻..
       </Text>
@@ -42,6 +42,12 @@ const HomeScreen = ({ navigation }: Props) => {
         style={styles.likeButton}
         accessoryLeft={HeartIcon}>
         Login
+      </Button>
+      <Button
+        onPress={() => navigation.navigate('Statistics')}
+        style={styles.likeButton}
+        accessoryLeft={HeartIcon}>
+        Statistics
       </Button>
     </Page>
   );

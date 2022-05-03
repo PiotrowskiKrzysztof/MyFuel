@@ -3,11 +3,11 @@ import React from 'react';
 import { Page, Panel } from '../../components';
 import { RootStackParamList } from '../../utils/types';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Settings'>;
+type Props = NativeStackScreenProps<RootStackParamList, 'Statistics'>;
 
-const StatisticsScreen = ({ route }: Props) => {
+const StatisticsScreen = ({ navigation, route }: Props) => {
   return (
-    <Page>
+    <Page navigation={navigation} route={route}>
       <Panel title="Statistics">TODO</Panel>
     </Page>
   );
