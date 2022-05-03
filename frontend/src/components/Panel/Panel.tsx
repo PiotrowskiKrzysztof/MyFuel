@@ -49,7 +49,8 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   description: {
-    paddingBottom: 16,
+    marginTop: 16,
+    paddingBottom: 8,
   },
   panel: {
     borderRadius: 8,

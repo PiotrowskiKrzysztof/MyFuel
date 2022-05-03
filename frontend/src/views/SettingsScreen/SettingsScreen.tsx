@@ -26,7 +26,9 @@ const SettingsScreen = ({ navigation, route }: Props) => {
 
   return (
     <Page navigation={navigation} route={route}>
-      <Panel title="Settings Form">
+      <Panel
+        title="Settings Form"
+        viewDescription="Sections to change application settings.">
         <View>
           <ToggleButtom
             value="get premium"
