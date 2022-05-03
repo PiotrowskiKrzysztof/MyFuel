@@ -1,4 +1,3 @@
-import { Link } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Button, Text } from '@ui-kitten/components';
 import React from 'react';
@@ -9,7 +8,7 @@ import {
   Input,
   Page,
   Panel,
-  PasswordInput,
+  PasswordInput
 } from '../../components';
 import { RootStackParamList } from '../../utils/types';
 
@@ -30,7 +29,7 @@ const LoginScreen = ({ navigation, route }: Props) => {
   const onSubmit: SubmitHandler<Inputs> = data => console.log(data);
 
   return (
-    <Page navigation={navigation} route={route} headerVariant="unauthenticated">
+    <Page navigation={navigation} route={route} headerVariant="unauthenticated" hasFooter={false}>
       <Panel title="Login form">
         <Input
           name="login"

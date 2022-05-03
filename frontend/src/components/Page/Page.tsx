@@ -15,12 +15,14 @@ type Props = {
   >;
   route: RouteProp<RootStackParamList>;
   headerVariant?: HeaderVariant;
+  hasFooter?: boolean;
 };
 
 const Page: React.FC<Props> = ({
   navigation,
   route,
   headerVariant,
+  hasFooter = true,
   children,
 }) => {
   const styles = useStyleSheet(themedStyles);
@@ -28,7 +30,7 @@ const Page: React.FC<Props> = ({
     <Layout level="2" style={styles.layout}>
       <Header variant={headerVariant}/>
       <View style={styles.container}>{children}</View>
-      <BottomNavigation navigation={navigation} route={route} />
+      {hasFooter && <BottomNavigation navigation={navigation} route={route} />}
     </Layout>
   );
 };

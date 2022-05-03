@@ -31,7 +31,11 @@ const RegisterScreen = ({ navigation, route }: Props) => {
   const onSubmit: SubmitHandler<Inputs> = data => console.log(data);
 
   return (
-    <Page navigation={navigation} route={route} headerVariant="unauthenticated">
+    <Page
+      navigation={navigation}
+      route={route}
+      headerVariant="unauthenticated"
+      hasFooter={false}>
       <Panel title="Register form">
         <Input
           name="login"

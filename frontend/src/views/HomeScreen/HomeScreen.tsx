@@ -23,6 +23,14 @@ const HomeScreen = ({ navigation, route }: Props) => {
       <Text style={styles.text} appearance="hint">
         For example, try changing theme to Dark by using eva.dark
       </Text>
+
+      {/* TODO: Temporary navigation, remove it later */}
+      <Button
+        onPress={() => navigation.navigate('Login')}
+        style={styles.likeButton}
+        accessoryLeft={HeartIcon}>
+        Login
+      </Button>
     </Page>
   );
 };

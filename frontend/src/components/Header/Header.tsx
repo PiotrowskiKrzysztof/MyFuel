@@ -39,7 +39,8 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'flex-end',
-    marginTop: 16,
+    marginTop: 32,
+    marginBottom: 16,
     paddingHorizontal: 32,
   },
   headerUnauth: {
