@@ -62,7 +62,7 @@
     "@components/*": ["./src/components/*"],
     "@types": ["./src/utils/types"]
   },
-  "include": ["src/**/*", "./App.tsx"],
+  "include": ["src/**/*", "./App.tsx", "src/views/RegisterScreen/RegisterScreen/.tsx"],
   "exclude": [
     "node_modules", "babel.config.js", "metro.config.js", "jest.config.js"
   ]

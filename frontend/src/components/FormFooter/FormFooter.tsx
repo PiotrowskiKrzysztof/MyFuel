@@ -7,30 +7,43 @@ type FormFooterProps = {
   onSubmit: () => void;
 };
 
-const FormFooter = ({ onSubmit, onCancel }: FormFooterProps) => (
+const FormFooter: React.FC<FormFooterProps> = ({
+  onSubmit,
+  onCancel,
+  children,
+}) => (
   <View style={styles.footerContainer}>
-    {onCancel && (
-      <Button
-        onPress={onSubmit}
-        style={styles.footerControl}
-        size="small"
-        appearance="ghost">
-        CANCEL
+    {children}
+    <View style={styles.buttonContainer}>
+      {onCancel && (
+        <Button
+          onPress={onSubmit}
+          style={styles.footerControl}
+          size="small"
+          appearance="ghost">
+          CANCEL
+        </Button>
+      )}
+      <Button onPress={onSubmit} style={styles.footerControl} size="small">
+        SUBMIT
       </Button>
-    )}
-    <Button onPress={onSubmit} style={styles.footerControl} size="small">
-      SUBMIT
-    </Button>
+    </View>
   </View>
 );
 
 const styles = StyleSheet.create({
   footerContainer: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  buttonContainer: {
+    flexDirection: 'row',
     justifyContent: 'flex-end',
+    alignItems: "center",
   },
   footerControl: {
     marginHorizontal: 2,
+    height: 40
   },
 });
 

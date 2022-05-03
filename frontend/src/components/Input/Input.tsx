@@ -37,7 +37,10 @@ const Input = <T extends FieldValues>({
   error,
   ...props
 }: Props<T>) => {
+  const { label } = props;
   const renderErrorMessage = error?.message && errorMessage(error.message);
+  const uppercaseLabel =
+    typeof label === 'string' ? label.toUpperCase() : undefined;
 
   return (
     <Controller
@@ -46,12 +49,13 @@ const Input = <T extends FieldValues>({
       rules={rules}
       render={({ field: { onChange, onBlur, value } }) => (
         <KittenInput
+          {...props}
           value={value}
           placeholder={placeholder}
           onBlur={onBlur}
           onChangeText={onChange}
           caption={renderErrorMessage}
-          {...props}
+          label={uppercaseLabel}
         />
       )}
     />
@@ -73,7 +77,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '400',
     fontFamily: 'opensans-regular',
-  }
+  },
 });
 
 export default Input;

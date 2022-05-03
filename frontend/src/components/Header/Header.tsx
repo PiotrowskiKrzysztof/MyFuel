@@ -39,8 +39,8 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'flex-end',
-    padding: 32,
     marginTop: 16,
+    paddingHorizontal: 32,
   },
   headerUnauth: {
     justifyContent: 'center',

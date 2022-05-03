@@ -41,7 +41,6 @@ const themedStyles = StyleService.create({
     display: 'flex',
     flex: 1,
     alignItems: 'center',
-    paddingVertical: 16,
     paddingHorizontal: 32,
   },
 });

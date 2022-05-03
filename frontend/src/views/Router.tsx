@@ -4,8 +4,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { HomeScreen } from './HomeScreen';
 import { ProfileScreen } from './ProfileScreen';
 import { SettingsScreen } from './SettingsScreen';
-import { AuthenticationScreen } from './AuthenticationScreen';
+import { LoginScreen } from './LoginScreen';
 import { StatisticsScreen } from './StatisticsScreen';
+import { RegisterScreen } from './RegisterScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -29,7 +30,12 @@ const Router: React.FC = () => (
       />
       <Stack.Screen
         name="Login"
-        component={AuthenticationScreen}
+        component={LoginScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Register"
+        component={RegisterScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen

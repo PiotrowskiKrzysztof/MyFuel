@@ -1,8 +1,6 @@
 import { Icon } from '@ui-kitten/components';
 import React, { useState } from 'react';
-import {
-  ImageProps, TouchableWithoutFeedback
-} from 'react-native';
+import { ImageProps, TouchableWithoutFeedback } from 'react-native';
 import { Input } from '../Input';
 
 const eyeIcon = (
@@ -37,6 +35,8 @@ const PasswordInput = ({
   return (
     <Input
       name={name}
+      rules={rules}
+      error={error}
       control={control}
       placeholder={placeholder}
       accessoryRight={renderEyeIcon}
