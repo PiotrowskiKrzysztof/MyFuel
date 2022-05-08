@@ -1,14 +1,9 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Text, Button } from '@ui-kitten/components';
-import { Control, FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { Control, FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import {
-  Page,
-  Panel,
-  Input,
-  PasswordInput,
-  FormFooter,
+  FormFooter, Input, Page,
+  Panel, PasswordInput
 } from '../../components';
 import { RootStackParamList } from '../../utils/types';
 
