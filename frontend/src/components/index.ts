@@ -5,3 +5,4 @@ export * from "./PasswordInput";
 export * from "./ToggleButtom";
 export * from "./FormFooter";
 export * from "./Card";
+export * from "./Carousel";

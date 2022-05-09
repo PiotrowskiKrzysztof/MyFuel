@@ -54,8 +54,8 @@ const styles = StyleSheet.create({
   },
   panel: {
     borderRadius: 8,
-    paddingVertical: 16,
-    paddingHorizontal: 32,
+    paddingVertical: 24,
+    paddingHorizontal: 24,
   },
   stretch: {
     width: '100%',
