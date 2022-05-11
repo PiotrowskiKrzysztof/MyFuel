@@ -3,7 +3,7 @@ import { Icon } from '@ui-kitten/components';
 import React, { useContext } from 'react';
 import { ImageProps, View } from 'react-native';
 import { Page, Panel, ToggleButtom } from '../../components';
-import { ThemeContext } from '../../utils/theme.context';
+import { ThemeContext } from '../../contexts/theme.context';
 import { RootStackParamList } from '../../utils/types';
 
 const StarIcon = (props?: Partial<ImageProps>) => (

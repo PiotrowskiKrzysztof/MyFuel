@@ -8,35 +8,55 @@ import {
   Input,
   Page,
   Panel,
-  PasswordInput
+  PasswordInput,
 } from '../../components';
+import { useAuth } from '../../contexts/auth.context';
+import { handleLogin } from '../../utils/auth';
 import { RootStackParamList } from '../../utils/types';
 
 type Inputs = {
-  login: string;
+  email: string;
   password: string;
 };
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 
 const LoginScreen = ({ navigation, route }: Props) => {
+  const { dispatch } = useAuth();
+
   const {
     control,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = data => console.log(data);
+  const onSubmit: SubmitHandler<Inputs> = data => {
+    handleLogin(data, user =>
+      dispatch({ type: 'login', payload: { user } }),
+    ).then(async res => {
+      if (!res) {
+        return;
+      }
+
+      const { message } = await res.json();
+      setError('email', { message });
+    });
+  };
 
   return (
-    <Page navigation={navigation} route={route} headerVariant="unauthenticated" hasFooter={false}>
+    <Page
+      navigation={navigation}
+      route={route}
+      headerVariant="unauthenticated"
+      hasFooter={false}>
       <Panel title="Login form">
         <Input
-          name="login"
-          label="login"
+          name="email"
+          label="email"
           control={control}
           rules={{ required: 'This input is requred' }}
-          error={errors.login}
+          error={errors.email}
           style={styles.gap}
         />
         <PasswordInput

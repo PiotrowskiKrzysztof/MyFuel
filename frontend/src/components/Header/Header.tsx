@@ -1,6 +1,7 @@
 import { Button, Icon } from '@ui-kitten/components';
 import React from 'react';
 import { ImageProps, StyleSheet, View } from 'react-native';
+import { useAuth } from '../../contexts/auth.context';
 import { HeaderVariant } from '../../utils/types';
 import { Logo } from '../Logo';
 
@@ -17,8 +18,9 @@ const Header = ({ variant = 'authenticated' }: Props) => {
   const headerVariantStyles =
     variant === 'authenticated' ? styles.headerAuth : styles.headerUnauth;
 
+  const { dispatch } = useAuth();
   const handleLogout = () => {
-    // TODO
+    dispatch({ type: 'logout' });
   };
 
   return (

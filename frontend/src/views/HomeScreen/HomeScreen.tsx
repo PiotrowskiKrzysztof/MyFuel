@@ -10,7 +10,7 @@ import {
 import React, { useContext } from 'react';
 import { FlatList, View } from 'react-native';
 import { Carousel, Page, Panel } from '../../components';
-import { ThemeContext } from '../../utils/theme.context';
+import { ThemeContext } from '../../contexts/theme.context';
 import { RootStackParamList } from '../../utils/types';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
@@ -75,14 +75,13 @@ const HomeScreen = ({ navigation, route }: Props) => {
                 )}
               />
               <Icon
-              name="star"
+                name="star"
                 style={styles.icon}
                 fill={
                   themeVariant === 'dark'
                     ? theme['color-primary-300']
                     : theme['color-primary-500']
                 }
-                
               />
             </View>
           </View>

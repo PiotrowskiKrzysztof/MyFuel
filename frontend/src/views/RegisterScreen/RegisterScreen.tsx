@@ -10,10 +10,12 @@ import {
   Panel,
   PasswordInput,
 } from '../../components';
+import { useAuth } from '../../contexts/auth.context';
+import { handleLogin, handleRegister } from '../../utils/auth';
 import { RootStackParamList } from '../../utils/types';
 
 type Inputs = {
-  login: string;
+  username: string;
   email: string;
   password: string;
   rePassword: string;
@@ -22,13 +24,42 @@ type Inputs = {
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 
 const RegisterScreen = ({ navigation, route }: Props) => {
+  const { dispatch } = useAuth();
+
   const {
     control,
     handleSubmit,
     formState: { errors },
+    setError,
+    clearErrors,
   } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = data => console.log(data);
+  const validate = ({ password, rePassword }: Inputs) => {
+    if (password !== rePassword) {
+      setError('rePassword', { message: 'Not equal to password' });
+      return;
+    }
+
+    clearErrors();
+  };
+
+  const onSubmit: SubmitHandler<Inputs> = data => {
+    validate(data);
+    Reflect.deleteProperty(data, 'rePassword');
+    const { email, password } = data;
+    handleRegister(data, () => {
+      handleLogin({ email, password }, user =>
+        dispatch({ type: 'login', payload: { user } }),
+      ).catch(console.error);
+    }).then(async res => {
+      if (!res) {
+        return;
+      }
+
+      const { message } = await res.json();
+      setError('email', { message });
+    });
+  };
 
   return (
     <Page
@@ -38,8 +69,8 @@ const RegisterScreen = ({ navigation, route }: Props) => {
       hasFooter={false}>
       <Panel title="Register form">
         <Input
-          name="login"
-          label="login"
+          name="username"
+          label="username"
           control={control}
           rules={{
             required: 'Login is requred',
@@ -48,7 +79,7 @@ const RegisterScreen = ({ navigation, route }: Props) => {
               message: 'Login is too long (Max length is 25)',
             },
           }}
-          error={errors.login}
+          error={errors.username}
           style={styles.gap}
         />
         <Input
@@ -79,7 +110,13 @@ const RegisterScreen = ({ navigation, route }: Props) => {
           name="rePassword"
           label="repeat password"
           control={control as unknown as Control<FieldValues, any>}
-          rules={{ required: 'Password repeat is requred' }}
+          rules={{
+            required: 'Password repeat is requred',
+            minLength: {
+              value: 6,
+              message: 'Password is too short (Min length is 6)',
+            },
+          }}
           error={errors.rePassword}
           style={styles.gap}
         />

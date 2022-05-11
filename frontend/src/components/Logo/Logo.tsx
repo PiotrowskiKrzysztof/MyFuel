@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import Svg, { Path } from "react-native-svg"
-import { ThemeContext } from '../../utils/theme.context';
+import { ThemeContext } from '../../contexts/theme.context';
 
 const XLLogo = (color: "black" | "white") => (
   <Svg
