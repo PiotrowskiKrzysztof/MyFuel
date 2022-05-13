@@ -4,6 +4,7 @@ import {
   Icon,
   Text,
   useTheme,
+  Layout
 } from '@ui-kitten/components';
 import { FlexViewCrossStyleProps } from '@ui-kitten/components/devsupport';
 import React, { useContext, useState } from 'react';
@@ -26,7 +27,6 @@ const ScanScreen = ({ navigation, route }: Props) => {
     const theme = useTheme();
     // const styles = useStyleSheet(themedStyles);
     const { theme: themeVariant } = useContext(ThemeContext);
-
     const [visibleView, setVisibleView] = useState(true);
     const [history, setHistory] = useState([
       {
@@ -77,13 +77,43 @@ const ScanScreen = ({ navigation, route }: Props) => {
       setVisibleView(!visibleView);
     }
 
-    const ScanIcon = (props?: Partial<ImageProps>) => (
-      <Icon {...props} name="camera-outline" />
-    );
+    const ScanButton = () => {
+      if(visibleView) {
+        return [
+            <Icon name='camera-outline' fill='#3366FF' style={styles.icon}></Icon>,
+            <Text style={[styles.bold, {color: '#3366FF'}]}>SCAN</Text>
+        ]
+      } else if(themeVariant === 'dark') {
+        return  [
+          <Icon name='camera-outline' fill='#fff' style={styles.icon}></Icon>,
+          <Text style={styles.bold}>SCAN</Text>
+        ]
+      } else {
+        return  [
+          <Icon name='camera-outline' fill='#000' style={styles.icon}></Icon>,
+          <Text style={styles.bold}>SCAN</Text>
+        ]
+      }
+    }
 
-    const HistoryIcon = (props?: Partial<ImageProps>) => (
-      <Icon {...props} name="book-open-outline" />
-    );
+    const HistoryButton = () => {
+      if(!visibleView) {
+        return [
+          <Icon name='book-open-outline' fill='#3366FF' style={styles.icon}></Icon>,
+          <Text style={[styles.bold, {color: '#3366FF'}]}>HISTORY</Text>
+      ]
+      } else if(themeVariant === 'dark') {
+        return  [
+          <Icon name='book-open-outline' fill='#fff' style={styles.icon}></Icon>,
+          <Text style={styles.bold}>HISTORY</Text>
+        ]
+      } else {
+        return  [
+          <Icon name='book-open-outline' fill='#000' style={styles.icon}></Icon>,
+          <Text style={styles.bold}>HISTORY</Text>
+        ]
+      }
+    }
 
     const renderView = () => {
       if(visibleView) {
@@ -95,19 +125,18 @@ const ScanScreen = ({ navigation, route }: Props) => {
       } else {
         return (
           <View>
-            {/* <Text>HISTORY</Text> */}
             <FlatList
               data={history}
               renderItem={({item}) => (
                 <View key={item.id} style={styles.containerItem}>
                   <View style={styles.leftItem}>
-                    <Text style={{fontSize: 12, color: '#222B45', lineHeight: 16}}>{item.date}</Text>
+                    <Text style={{fontSize: 12, lineHeight: 16}}>{item.date}</Text>
                     <Text style={{fontSize: 12, color: '#8F9BB3', lineHeight: 16}}>{item.street}</Text>
                     <Text style={{fontSize: 12, color: '#8F9BB3', lineHeight: 16}}>{item.city}</Text>
                   </View>
                   <View style={styles.rightItem}>
-                    <Text style={{fontSize: 12, color: '#222B45', lineHeight: 16}}>{'Inovice ' + item.id}</Text>
-                    <Text style={{fontSize: 16, color: '#222B45', lineHeight: 16, fontWeight: 'bold'}}>{item.value + ' PLN'}</Text>
+                    <Text style={{fontSize: 12, lineHeight: 16}}>{'Inovice ' + item.id}</Text>
+                    <Text style={{fontSize: 16, lineHeight: 16, fontWeight: 'bold'}}>{item.value + ' PLN'}</Text>
                   </View>
                 </View>
               )}
@@ -127,21 +156,19 @@ const ScanScreen = ({ navigation, route }: Props) => {
               </View>
           </Panel>
           <View>
-            <View style={styles.containerButtons}>
+            <Layout style={styles.containerButtons}>
               <TouchableHighlight style={styles.scanButton} onPress={changeVisible} underlayColor='#F7F9FC'>
                 <View style={styles.button__content}>
-                  <Icon name='camera-outline' fill='#000' style={styles.icon}></Icon>
-                  <Text style={{color: '#000', fontWeight: 'bold'}}>SCAN</Text>
+                  {ScanButton()}
                 </View>                
               </TouchableHighlight>
               <TouchableHighlight style={styles.historyButton} onPress={changeVisible} underlayColor='#F7F9FC'>
-              <View style={styles.button__content}>
-                  <Icon name='book-open-outline' fill='#000' style={styles.icon}></Icon>
-                  <Text style={{color: '#000', fontWeight: 'bold'}}>HISTORY</Text>
+              <View style={styles.button__content}>                  
+                  {HistoryButton()}
                 </View> 
               </TouchableHighlight>
-              <View style={styles.radius}></View>
-            </View>              
+              <Layout style={styles.radius} level='2'></Layout>
+            </Layout>              
           </View>
         </Page>
     );
@@ -175,7 +202,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   scanButton: {
-    backgroundColor: '#fff',
+    // backgroundColor: '#fff',
     height: 45,
     alignItems: 'flex-start',
     justifyContent: 'center',
@@ -187,7 +214,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',  
   },
   historyButton: {
-    backgroundColor: '#fff',
+    // backgroundColor: '#fff',
     height: 45,
     alignItems: 'flex-end',
     justifyContent: 'center',
@@ -199,7 +226,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     left: Dimensions.get('window').width / 2 - 100,
-    backgroundColor: '#F7F9FC',
+    // backgroundColor: '#F7F9FC',
     borderRadius: 100,
     width: 130,
     height: 100,
@@ -208,6 +235,9 @@ const styles = StyleSheet.create({
     width: 20,
     height: 18,
     marginHorizontal: 5,
+  },
+  bold: {
+    fontWeight: 'bold'
   }
 });
 
