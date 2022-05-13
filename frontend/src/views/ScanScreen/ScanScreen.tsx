@@ -27,7 +27,8 @@ const ScanScreen = ({ navigation, route }: Props) => {
     const theme = useTheme();
     // const styles = useStyleSheet(themedStyles);
     const { theme: themeVariant } = useContext(ThemeContext);
-    const [visibleView, setVisibleView] = useState(true);
+    const [visibleScanView, setVisibleScanView] = useState(true);
+    const [visibleHistoryView, setVisibleHistoryView] = useState(false);
     const [history, setHistory] = useState([
       {
         id: '236K20/9401/19',
@@ -73,12 +74,18 @@ const ScanScreen = ({ navigation, route }: Props) => {
       },
     ]);
 
-    const changeVisible = () => {
-      setVisibleView(!visibleView);
+    const visibleScan = () => {
+      setVisibleScanView(true);
+      setVisibleHistoryView(false);
+    }
+
+    const visibleHistory = () => {
+      setVisibleScanView(false);
+      setVisibleHistoryView(true);
     }
 
     const ScanButton = () => {
-      if(visibleView) {
+      if(visibleScanView) {
         return [
             <Icon name='camera-outline' fill='#3366FF' style={styles.icon}></Icon>,
             <Text style={[styles.bold, {color: '#3366FF'}]}>SCAN</Text>
@@ -97,7 +104,7 @@ const ScanScreen = ({ navigation, route }: Props) => {
     }
 
     const HistoryButton = () => {
-      if(!visibleView) {
+      if(visibleHistoryView) {
         return [
           <Icon name='book-open-outline' fill='#3366FF' style={styles.icon}></Icon>,
           <Text style={[styles.bold, {color: '#3366FF'}]}>HISTORY</Text>
@@ -116,7 +123,7 @@ const ScanScreen = ({ navigation, route }: Props) => {
     }
 
     const renderView = () => {
-      if(visibleView) {
+      if(visibleScanView) {
         return (
           <View>
             <Text>SCAN</Text>
@@ -157,12 +164,12 @@ const ScanScreen = ({ navigation, route }: Props) => {
           </Panel>
           <View>
             <Layout style={styles.containerButtons}>
-              <TouchableHighlight style={styles.scanButton} onPress={changeVisible} underlayColor='#F7F9FC'>
+              <TouchableHighlight style={styles.scanButton} onPress={visibleScan} underlayColor='#F7F9FC'>
                 <View style={styles.button__content}>
                   {ScanButton()}
                 </View>                
               </TouchableHighlight>
-              <TouchableHighlight style={styles.historyButton} onPress={changeVisible} underlayColor='#F7F9FC'>
+              <TouchableHighlight style={styles.historyButton} onPress={visibleHistory} underlayColor='#F7F9FC'>
               <View style={styles.button__content}>                  
                   {HistoryButton()}
                 </View> 
