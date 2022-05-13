@@ -66,7 +66,7 @@ const BottomNavigation = ({ navigation, route }: Props) => {
       <Button
         style={styles.scanButton}
         appearance={isActiveRoute('Scan')}
-        onPress={() => navigation.navigate('Settings')}
+        onPress={() => navigation.navigate('Scan')}
         accessoryLeft={QrIcon}
       />
       <View style={styles.row}>
