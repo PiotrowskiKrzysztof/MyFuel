@@ -1,19 +1,19 @@
-import { Button, Card as KittenCard, Icon, Text } from '@ui-kitten/components';
+import { Card as KittenCard, Icon, Text } from '@ui-kitten/components';
 import { EvaStatus } from '@ui-kitten/components/devsupport';
-import React, { useState } from 'react';
-import { ImageProps, StyleSheet, View } from 'react-native';
-
-const HeartIcon = (
-  props?: Partial<ImageProps>,
-): React.ReactElement<ImageProps> => <Icon {...props} name="heart" />;
+import React, { useContext } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { ThemeContext } from '../../contexts/theme.context';
 
 type Props = {
   headerText: string;
   footerText: string;
-  status: EvaStatus
+  status: EvaStatus;
+  iconName: string;
 };
 
-const Card = ({ headerText, footerText, status }: Props) => {
+const Card = ({ headerText, footerText, status, iconName }: Props) => {
+  const { theme: themeVariant } = useContext(ThemeContext);
+
   return (
     <KittenCard
       appearance="outline"
@@ -21,14 +21,13 @@ const Card = ({ headerText, footerText, status }: Props) => {
       style={styles.card}
       header={props => (
         <View {...props}>
-          
           <Text style={styles.headerText} category="h6">
             {headerText}
           </Text>
         </View>
       )}>
       <Text style={styles.footerText} category="h6">{footerText}</Text>
-      <Icon style={styles.icon} fill="red" name="heart" />
+      <Icon style={styles.icon} fill={themeVariant === 'dark' ? 'white' : 'black'} name={iconName} />
     </KittenCard>
   );
 };

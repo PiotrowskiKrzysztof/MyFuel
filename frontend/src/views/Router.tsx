@@ -10,34 +10,34 @@ import { SettingsScreen } from './SettingsScreen';
 import { StatisticsScreen } from './StatisticsScreen';
 import { ScanScreen } from './ScanScreen';
 
-// const AuthGate: React.FC = ({ children }) => {
-//   const { state } = useAuth();
+const AuthGate: React.FC = ({ children }) => {
+  const { state } = useAuth();
   
-//   if (state.isAuthenticated) {
-//     return children;
-//   }
+  if (!state.isAuthenticated) {
+    return children;
+  }
 
-//   return (
-//     <Stack.Navigator>
-//       <Stack.Screen
-//         name="Login"
-//         component={LoginScreen}
-//         options={{ headerShown: false }}
-//       />
-//       <Stack.Screen
-//         name="Register"
-//         component={RegisterScreen}
-//         options={{ headerShown: false }}
-//       />
-//     </Stack.Navigator>
-//   );
-// };
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Login"
+        component={LoginScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Register"
+        component={RegisterScreen}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
+  );
+};
 
 const Stack = createNativeStackNavigator();
 
 const Router: React.FC = () => (
   <NavigationContainer>
-    {/* <AuthGate> */}
+    <AuthGate>
       <Stack.Navigator>
         <Stack.Screen
           name="Home"
@@ -65,7 +65,7 @@ const Router: React.FC = () => (
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
-    {/* </AuthGate> */}
+    </AuthGate>
   </NavigationContainer>
 );
 
