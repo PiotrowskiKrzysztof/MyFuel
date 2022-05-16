@@ -64,9 +64,9 @@ const BottomNavigation = ({ navigation, route }: Props) => {
       </View>
       <View style={styles.space} />
       <Button
-        style={styles.scanButton}
-        appearance={isActiveRoute('Scan')}
         onPress={() => navigation.navigate('Scan')}
+        style={route.name === 'Scan' ? styles.scanButtonActive : styles.scanButton}
+        appearance={isActiveRoute('Scan')}        
         accessoryLeft={QrIcon}
       />
       <View style={styles.row}>
@@ -105,7 +105,7 @@ const themedStyles = StyleService.create({
   scanButton: {
     position: 'absolute',
     alignSelf: 'center',
-    bottom: 20,
+    bottom: 25,
     left: Dimensions.get('window').width / 2 - 40,
     width: 80,
     height: 80,
@@ -113,7 +113,20 @@ const themedStyles = StyleService.create({
     flex: 1,
     borderRadius: 100,
     backgroundColor: "background-basic-color-1",
-    borderColor: "color-primary-default"
+    borderColor: "color-primary-default",
+  },
+  scanButtonActive: {
+    position: 'absolute',
+    alignSelf: 'center',
+    bottom: 25,
+    left: Dimensions.get('window').width / 2 - 40,
+    width: 80,
+    height: 80,
+    zIndex: 100,
+    flex: 1,
+    borderRadius: 100,
+    backgroundColor: "color-primary-default",
+    borderColor: "color-primary-default",
   },
   navigatorButton: {
     margin: 10,

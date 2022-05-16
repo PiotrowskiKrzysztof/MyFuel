@@ -6,7 +6,6 @@ import {
   useTheme,
   Layout
 } from '@ui-kitten/components';
-import { FlexViewCrossStyleProps } from '@ui-kitten/components/devsupport';
 import React, { useContext, useState } from 'react';
 import {
   View,
@@ -16,7 +15,6 @@ import {
   TouchableHighlight,
   Dimensions
 } from 'react-native';
-import { withTheme } from 'react-native-elements';
 import { Page, Panel } from '../../components';
 import { ThemeContext } from '../../contexts/theme.context';
 import { RootStackParamList } from '../../utils/types';
@@ -25,10 +23,8 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Scan'>;
 
 const ScanScreen = ({ navigation, route }: Props) => {
     const theme = useTheme();
-    // const styles = useStyleSheet(themedStyles);
     const { theme: themeVariant } = useContext(ThemeContext);
-    const [visibleScanView, setVisibleScanView] = useState(true);
-    const [visibleHistoryView, setVisibleHistoryView] = useState(false);
+    const [visibleView, setVisibleView] = useState(true);
     const [history, setHistory] = useState([
       {
         id: '236K20/9401/19',
@@ -75,55 +71,53 @@ const ScanScreen = ({ navigation, route }: Props) => {
     ]);
 
     const visibleScan = () => {
-      setVisibleScanView(true);
-      setVisibleHistoryView(false);
+      setVisibleView(true);
     }
 
     const visibleHistory = () => {
-      setVisibleScanView(false);
-      setVisibleHistoryView(true);
+      setVisibleView(false);
     }
 
     const ScanButton = () => {
-      if(visibleScanView) {
-        return [
-            <Icon name='camera-outline' fill='#3366FF' style={styles.icon}></Icon>,
+      if(visibleView) {
+        return <>
+            <Icon name='camera-outline' fill='#3366FF' style={styles.icon}></Icon>
             <Text style={[styles.bold, {color: '#3366FF'}]}>SCAN</Text>
-        ]
+          </>
       } else if(themeVariant === 'dark') {
-        return  [
-          <Icon name='camera-outline' fill='#fff' style={styles.icon}></Icon>,
+        return <>
+          <Icon name='camera-outline' fill='#fff' style={styles.icon}></Icon>
           <Text style={styles.bold}>SCAN</Text>
-        ]
+        </>
       } else {
-        return  [
-          <Icon name='camera-outline' fill='#000' style={styles.icon}></Icon>,
+        return <>
+          <Icon name='camera-outline' fill='#000' style={styles.icon}></Icon>
           <Text style={styles.bold}>SCAN</Text>
-        ]
+        </>
       }
     }
 
     const HistoryButton = () => {
-      if(visibleHistoryView) {
-        return [
-          <Icon name='book-open-outline' fill='#3366FF' style={styles.icon}></Icon>,
+      if(!visibleView) {
+        return <>
+          <Icon name='book-open-outline' fill='#3366FF' style={styles.icon}></Icon>
           <Text style={[styles.bold, {color: '#3366FF'}]}>HISTORY</Text>
-      ]
+        </>
       } else if(themeVariant === 'dark') {
-        return  [
-          <Icon name='book-open-outline' fill='#fff' style={styles.icon}></Icon>,
+        return <> 
+          <Icon name='book-open-outline' fill='#fff' style={styles.icon}></Icon>
           <Text style={styles.bold}>HISTORY</Text>
-        ]
+        </>
       } else {
-        return  [
-          <Icon name='book-open-outline' fill='#000' style={styles.icon}></Icon>,
+        return <>
+          <Icon name='book-open-outline' fill='#000' style={styles.icon}></Icon>
           <Text style={styles.bold}>HISTORY</Text>
-        ]
+        </>
       }
     }
 
     const renderView = () => {
-      if(visibleScanView) {
+      if(visibleView) {
         return (
           <View>
             <Text>SCAN</Text>
@@ -186,7 +180,6 @@ const styles = StyleSheet.create({
     flexBasis: '65%',
   },
   containerItem: {
-    // backgroundColor: 'pink',
     justifyContent: 'space-between',
     flexDirection: 'row',
     marginBottom: 5,
@@ -209,7 +202,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   scanButton: {
-    // backgroundColor: '#fff',
     height: 45,
     alignItems: 'flex-start',
     justifyContent: 'center',
@@ -221,7 +213,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',  
   },
   historyButton: {
-    // backgroundColor: '#fff',
     height: 45,
     alignItems: 'flex-end',
     justifyContent: 'center',
@@ -233,7 +224,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     left: Dimensions.get('window').width / 2 - 100,
-    // backgroundColor: '#F7F9FC',
     borderRadius: 100,
     width: 130,
     height: 100,
