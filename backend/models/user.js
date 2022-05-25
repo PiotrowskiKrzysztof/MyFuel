@@ -27,12 +27,13 @@ const User = sequelize.define('users', {
 
 if (process.env.NODE_ENV !== 'production') {
    // User seed
+   console.log("\n#### User seed ####\n")
    bcrypt.hash("test01", 12, (_, passwordHash) => {
       User.create(({
          email: "test01@test.com",
          username: "test01",
          password: passwordHash,
-      }))
+      })).catch(console.error)
    })
 }
 
