@@ -7,11 +7,11 @@ import 'dotenv/config'
 
 const router = express.Router();
 
-router.get('/statistics/fuelExpenses', fuelExpenses);
+router.get('/statistics/:userId/fuelExpenses/:nLastMonths', fuelExpenses);
 
-router.post('/statistics/monthly/spentMoneyPercent', spentMoneyPercent);
+router.get('/statistics/:userId/monthly/spentMoneyPercent', spentMoneyPercent);
 
-router.post('/statistics/monthly/patrolStationVisited', patrolStationVisited);
+router.get('/statistics/:userId/monthly/patrolStationVisited', patrolStationVisited);
 
 router.post('/invoices', createInvoice);
 

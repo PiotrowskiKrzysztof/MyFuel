@@ -13,7 +13,7 @@ import { ScanScreen } from './ScanScreen';
 const AuthGate: React.FC = ({ children }) => {
   const { state } = useAuth();
   
-  if (!state.isAuthenticated) {
+  if (state.isAuthenticated) {
     return children;
   }
 

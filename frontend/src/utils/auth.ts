@@ -1,9 +1,8 @@
+import { SERVER } from './constans';
 import { User } from './types';
 
-const API = 'http://10.0.2.2:8000';
-
 const onLoggedIn = (token: string, onSuccess: () => void) => {
-  fetch(`${API}/me`, {
+  fetch(`${SERVER}/me`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -27,7 +26,7 @@ export const handleLogin = async (
   data: Login,
   onSuccess: (user: User) => void,
 ) => {
-  const res = await fetch(`${API}/login`, {
+  const res = await fetch(`${SERVER}/login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -52,13 +51,13 @@ type Register = {
 };
 
 export const handleRegister = async (data: Register, onSuccess: () => void) => {
-  const res = await fetch(`${API}/signup`, {
+  const res = await fetch(`${SERVER}/signup`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(data),
-  });
+  })
 
   if (res.status === 200) {
     onSuccess();

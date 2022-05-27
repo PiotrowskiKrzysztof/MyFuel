@@ -61,8 +61,8 @@ if (process.env.NODE_ENV !== 'production') {
    // Invoice seed
    setTimeout(() => {
       console.log("\n#### Invoice seed ####\n")
-      for(let i = 0; i < 20; i++) {
-         const randomValue = getRandomNumber(4);
+      for(let i = 0; i < 50; i++) {
+         const randomValue = getRandomNumber(400, 50);
          const randomMonth = getRandomNumber(6, 1);
          const randomDay = getRandomNumber(25, 1);
          const randomHour = getRandomNumber(24);
