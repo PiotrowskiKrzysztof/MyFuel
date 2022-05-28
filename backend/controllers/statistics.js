@@ -32,7 +32,7 @@ const getSumsFromNLastMonths = async (nLastMonths, userId) => {
 const fuelExpenses = async (req, res) => {
     const {nLastMonths, userId} = req.params;
     const arr = await getSumsFromNLastMonths(nLastMonths, userId)
-    console.log(arr)
+    
     return res.status(200).json(arr);
 }
 
