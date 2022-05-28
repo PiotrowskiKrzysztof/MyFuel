@@ -17,7 +17,7 @@ router.post('/invoices', createInvoice);
 
 router.get('/invoices/:invoiceId', getInvoice);
 
-router.get('/invoices/:userId', getUserInvoices);
+router.get('/users/:userId/invoices', getUserInvoices);
 
 router.get('/invoices', getAllInvoices);
 
