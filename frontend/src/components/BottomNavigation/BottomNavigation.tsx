@@ -73,7 +73,7 @@ const BottomNavigation = ({ navigation, route }: Props) => {
         <Button
           style={styles.navigatorButton}
           appearance={isActiveRoute('Profile')}
-          onPress={() => navigation.navigate('Profile', { name: 'Jane' })}
+          onPress={() => navigation.navigate('Profile')}
           accessoryLeft={PersonIcon}
         />
         <Button

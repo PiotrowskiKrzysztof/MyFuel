@@ -1,6 +1,6 @@
 import express from 'express';
 import { fuelExpenses, spentMoneyPercent, patrolStationVisited } from '../controllers/statistics.js';
-import { getUser } from '../controllers/user.js';
+import { getUser, updateUser } from '../controllers/user.js';
 import { signup, login, isAuth } from '../controllers/auth.js';
 import { getInvoice, getUserInvoices, createInvoice, getAllInvoices } from '../controllers/invoice.js';
 import 'dotenv/config'
@@ -20,6 +20,8 @@ router.get('/invoices/:invoiceId', getInvoice);
 router.get('/invoices/:userId', getUserInvoices);
 
 router.get('/invoices', getAllInvoices);
+
+router.put('/users', updateUser);
 
 router.get('/users/:userId', getUser);
 

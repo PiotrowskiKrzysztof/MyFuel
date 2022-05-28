@@ -8,6 +8,12 @@ type Action =
         user: User;
       };
     }
+  | {
+      type: 'update';
+      payload: {
+        user: Partial<User>;
+      };
+    }
   | { type: 'logout' };
 
 type Dispatch = (action: Action) => void;
@@ -21,13 +27,19 @@ const AuthStateContext = React.createContext<
   { state: State; dispatch: Dispatch } | undefined
 >(undefined);
 
-function authReducer(_: State, action: Action) {
+function authReducer(state: State, action: Action) {
   switch (action.type) {
     case 'login': {
       return { isAuthenticated: true, user: action.payload.user };
     }
     case 'logout': {
       return { isAuthenticated: false, user: undefined };
+    }
+    case 'update': {
+      return {
+        isAuthenticated: true,
+        user: { ...state.user, ...action.payload.user } as User,
+      };
     }
     default: {
       throw new Error('Unhandled action type');

@@ -5,7 +5,7 @@ export type RootStackParamList = {
   Login: undefined;
   Register: undefined;
   Scan: undefined;
-  Profile: { name: string };
+  Profile: undefined;
 };
 
 export type HeaderVariant = 'authenticated' | 'unauthenticated';

@@ -39,7 +39,6 @@ const signup = (req, res) => {
                 console.log(err);
                 res.status(502).json({message: "error while creating the user"});
             });
-
         });
   
     })

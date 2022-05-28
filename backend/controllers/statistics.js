@@ -4,42 +4,12 @@ import sequelize from '../database/database.js';
 
 const getFirstDayOfMonth = (date) => new Date(date.getFullYear(), date.getMonth(), 1);
 const getLastDayOfMonth = (date) => new Date(date.getFullYear(), date.getMonth() + 1, 0);
-const moduloWithNetagive = (num, total) => ((num % total) + total) % total;
-
-const getSpentMoneyInMonth = async (date, userId) => {
-    const startOfMonth = getFirstDayOfMonth(date);
-    const endOfMonth = getLastDayOfMonth(date);
-    const sum = await Invoice.sum('value', {
-        where: {
-            date: {
-                [Op.between]: [startOfMonth, endOfMonth]
-            },
-            userId: {
-                [Op.eq]: userId
-            }
-        },
-    })
-
-    return sum;
-}
-
-const getSpentMoneyBetweenDates = async (fromDate, toDate) => {
-    const sum = await Invoice.sum('value', {
-        where: {
-            date: {
-                [Op.between]: [fromDate, toDate]
-            },
-        },
-    })
-    
-
-    return sum;
-}
+const moduloWithNetagative = (num, total) => ((num % total) + total) % total;
 
 const handleDate = (num) => {
     const now = new Date();
     const currentMonthNumer = now.getMonth()
-    const pastMonth = moduloWithNetagive(currentMonthNumer - num, 12)
+    const pastMonth = moduloWithNetagative(currentMonthNumer - num, 12)
 
     const fromDate = new Date();
     fromDate.setMonth(pastMonth);
@@ -72,11 +42,9 @@ const diffToPercent = (newVal, oldVal) => {
 }
 
 const spentMoneyPercent = async (req, res) => {
-    // const [lastMonth, now] = handleDate(1);
     const {userId} = req.params;
     const sums = await getSumsFromNLastMonths(2, userId)
     
-    // const sums = await Promise.all([getSpentMoneyInMonth(lastMonth, userId), getSpentMoneyInMonth(now, userId)])
     const lastMonthSum = sums[0].sum;
     const currentMonthSum = sums[1].sum;
     const difference = diffToPercent(currentMonthSum, lastMonthSum)
