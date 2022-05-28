@@ -6,7 +6,7 @@ import {
   useTheme,
   Layout
 } from '@ui-kitten/components';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import {
   View,
   StyleSheet,
@@ -18,6 +18,7 @@ import {
 import { Page, Panel } from '../../components';
 import { ThemeContext } from '../../contexts/theme.context';
 import { RootStackParamList } from '../../utils/types';
+import { SERVER } from '../../utils/constans';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Scan'>;
 
@@ -69,6 +70,12 @@ const ScanScreen = ({ navigation, route }: Props) => {
         city: 'Białystok'
       },
     ]);
+
+    useEffect(() => {
+      fetch(`${SERVER}/users/${1}/invoices`)
+      .then(res => res.json())
+      .then((res: any) => setHistory(res.invoices));
+    })
 
     const visibleScan = () => {
       setVisibleView(true);
