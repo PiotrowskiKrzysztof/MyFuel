@@ -37,7 +37,7 @@ const Stack = createNativeStackNavigator();
 
 const Router: React.FC = () => (
   <NavigationContainer>
-    <AuthGate>
+    {/* <AuthGate> */}
       <Stack.Navigator>
         <Stack.Screen
           name="Home"
@@ -65,7 +65,7 @@ const Router: React.FC = () => (
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
-    </AuthGate>
+    {/* </AuthGate> */}
   </NavigationContainer>
 );
 
