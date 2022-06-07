@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { Dimensions, ScrollView, StyleSheet, View } from 'react-native';
 import { LineChart } from 'react-native-chart-kit';
 import { Card, Page, Panel } from '../../components';
+import { useAuth } from '../../contexts/auth.context';
 import { SERVER } from '../../utils/constans';
 import { RootStackParamList } from '../../utils/types';
 
@@ -37,7 +38,8 @@ const StatisticsScreen = ({ navigation, route }: Props) => {
   const [spentMoneyPercent, setSentMoneyPercent] = useState<number>(0);
   const [newStations, setNewStations] = useState<number>(0);
   const [expenses, setExpenses] = useState<Expenses>([]);
-
+  const { state } = useAuth();
+  
   const currentMonth = new Date().getMonth();
 
   const spentMoneyPercentMessage = isMore(spentMoneyPercent)
@@ -49,16 +51,18 @@ const StatisticsScreen = ({ navigation, route }: Props) => {
     currentMonth + 1,
   );
 
+  const userId = state.user?.id
+
   useEffect(() => {
-    fetch(`${SERVER}/statistics/1/fuelExpenses/3`)
+    fetch(`${SERVER}/statistics/${userId}/fuelExpenses/3`)
       .then(res => res.json())
       .then((res: Response) => setExpenses(res.map(it => it.sum)));
 
-    fetch(`${SERVER}/statistics/${1}/monthly/spentMoneyPercent`)
+    fetch(`${SERVER}/statistics/${userId}/monthly/spentMoneyPercent`)
       .then(res => res.json())
       .then(({ difference }) => setSentMoneyPercent(Math.round(difference)));
 
-    fetch(`${SERVER}/statistics/${1}/monthly/patrolStationVisited`)
+    fetch(`${SERVER}/statistics/${userId}/monthly/patrolStationVisited`)
       .then(res => res.json())
       .then(res => setNewStations(res.new));
   }, []);

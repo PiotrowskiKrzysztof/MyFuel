@@ -16,10 +16,11 @@ router.get('/statistics/:userId/monthly/patrolStationVisited', patrolStationVisi
 router.post('/invoices', createInvoice);
 
 router.get('/invoices/:invoiceId', getInvoice);
-
-router.get('/users/:userId/invoices', getUserInvoices);
+////////
 
 router.get('/invoices', getAllInvoices);
+
+router.get('/users/:userId/invoices', getUserInvoices);
 
 router.put('/users', updateUser);
 
@@ -28,8 +29,6 @@ router.get('/users/:userId', getUser);
 router.post('/signup', signup);
 
 router.post('/login', login);
-
-router.post('/signup', signup);
 
 router.get('/me', isAuth);
 
