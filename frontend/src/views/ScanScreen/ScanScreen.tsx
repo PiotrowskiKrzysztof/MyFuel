@@ -4,9 +4,11 @@ import {
   Icon,
   Text,
   useTheme,
-  Layout
+  Layout,
+  useStyleSheet,
+  StyleService
 } from '@ui-kitten/components';
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, useMemo } from 'react';
 import {
   View,
   StyleSheet,
@@ -15,7 +17,7 @@ import {
   TouchableHighlight,
   Dimensions,
   Linking,
-  TouchableOpacity
+  TouchableOpacity,
 } from 'react-native';
 import { Page, Panel } from '../../components';
 import { ThemeContext } from '../../contexts/theme.context';
@@ -27,62 +29,79 @@ import { RNCamera } from 'react-native-camera';
 type Props = NativeStackScreenProps<RootStackParamList, 'Scan'>;
 
 const ScanScreen = ({ navigation, route }: Props) => {
-    const theme = useTheme();
+    const styles = useStyleSheet(themedStyles);
     const { theme: themeVariant } = useContext(ThemeContext);
     const [visibleView, setVisibleView] = useState(true);
-    const [history, setHistory] = useState();
+    const [history, setHistory] = useState<any>([]);
 
     useEffect(() => {
       fetch(`${SERVER}/users/${1}/invoices`)
       .then(res => res.json())
       .then((res: any) => setHistory(res.invoices));
-    })
+    });
 
     const visibleScan = () => {
       setVisibleView(true);
-    }
+    };
 
     const visibleHistory = () => {
       setVisibleView(false);
-    }
+    };
 
     const ScanButton = () => {
-      if(visibleView) {
-        return <>
-            <Icon name='camera-outline' fill='#3366FF' style={styles.icon}></Icon>
-            <Text style={[styles.bold, {color: '#3366FF'}]}>SCAN</Text>
+      if (visibleView) {
+        return (
+          <>
+            <Icon name="camera-outline" fill="#3366FF" style={styles.icon}></Icon>
+            <Text style={[styles.bold, { color: '#3366FF' }]}>SCAN</Text>
           </>
-      } else if(themeVariant === 'dark') {
-        return <>
-          <Icon name='camera-outline' fill='#fff' style={styles.icon}></Icon>
-          <Text style={styles.bold}>SCAN</Text>
-        </>
+        );
+      } else if (themeVariant === 'dark') {
+        return (
+          <>
+            <Icon name="camera-outline" fill="#fff" style={styles.icon}></Icon>
+            <Text style={styles.bold}>SCAN</Text>
+          </>
+        );
       } else {
-        return <>
-          <Icon name='camera-outline' fill='#000' style={styles.icon}></Icon>
-          <Text style={styles.bold}>SCAN</Text>
-        </>
+        return (
+          <>
+            <Icon name="camera-outline" fill="#000" style={styles.icon}></Icon>
+            <Text style={styles.bold}>SCAN</Text>
+          </>
+        );
       }
-    }
+    };
+
+    const memoHistory = useMemo(() => history, [history]);
 
     const HistoryButton = () => {
-      if(!visibleView) {
-        return <>
-          <Icon name='book-open-outline' fill='#3366FF' style={styles.icon}></Icon>
-          <Text style={[styles.bold, {color: '#3366FF'}]}>HISTORY</Text>
-        </>
-      } else if(themeVariant === 'dark') {
-        return <> 
-          <Icon name='book-open-outline' fill='#fff' style={styles.icon}></Icon>
-          <Text style={styles.bold}>HISTORY</Text>
-        </>
+      if (!visibleView) {
+        return (
+          <>
+            <Icon
+              name="book-open-outline"
+              fill="#3366FF"
+              style={styles.icon}></Icon>
+            <Text style={[styles.bold, { color: '#3366FF' }]}>HISTORY</Text>
+          </>
+        );
+      } else if (themeVariant === 'dark') {
+        return (
+          <>
+            <Icon name="book-open-outline" fill="#fff" style={styles.icon}></Icon>
+            <Text style={styles.bold}>HISTORY</Text>
+          </>
+        );
       } else {
-        return <>
-          <Icon name='book-open-outline' fill='#000' style={styles.icon}></Icon>
-          <Text style={styles.bold}>HISTORY</Text>
-        </>
+        return (
+          <>
+            <Icon name="book-open-outline" fill="#000" style={styles.icon}></Icon>
+            <Text style={styles.bold}>HISTORY</Text>
+          </>
+        );
       }
-    }
+    };
 
     const onSuccess = (e:any) => {
       const data = JSON.parse(e.data);
@@ -98,7 +117,7 @@ const ScanScreen = ({ navigation, route }: Props) => {
     }
 
     const renderView = () => {
-      if(visibleView) {
+      if (visibleView) {
         return (
           <View>
             <QRCodeScanner
@@ -112,63 +131,84 @@ const ScanScreen = ({ navigation, route }: Props) => {
               containerStyle={styles.cameraContainer}
               cameraStyle={styles.camera}
               showMarker={true}
-              reactivateTimeout={1000}
             />
           </View>
-        )
+        );
       } else {
         return (
           <View>
             <FlatList
-              data={history}
-              renderItem={({item}) => (
+              data={memoHistory}
+              renderItem={({ item }) => (
                 <View key={item.id} style={styles.containerItem}>
                   <View style={styles.leftItem}>
-                    <Text style={{fontSize: 12, lineHeight: 16}}>{item.date}</Text>
-                    <Text style={{fontSize: 12, color: '#8F9BB3', lineHeight: 16}}>{item.street}</Text>
-                    <Text style={{fontSize: 12, color: '#8F9BB3', lineHeight: 16}}>{item.city}</Text>
+                    <Text style={{ fontSize: 12, lineHeight: 16 }}>
+                      {new Date(item.date).toDateString()}
+                    </Text>
+                    <Text
+                      style={{ fontSize: 12, color: '#8F9BB3', lineHeight: 16 }}>
+                      {item.street}
+                    </Text>
+                    <Text
+                      style={{ fontSize: 12, color: '#8F9BB3', lineHeight: 16 }}>
+                      {item.city}
+                    </Text>
                   </View>
                   <View style={styles.rightItem}>
-                    <Text style={{fontSize: 12, lineHeight: 16}}>{'Inovice ' + item.id}</Text>
-                    <Text style={{fontSize: 16, lineHeight: 16, fontWeight: 'bold'}}>{item.value + ' PLN'}</Text>
+                    <Text style={{ fontSize: 12, lineHeight: 16 }}>
+                      {'Inovice ' + item.id}
+                    </Text>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        lineHeight: 16,
+                        fontWeight: 'bold',
+                      }}>
+                      {item.value + ' PLN'}
+                    </Text>
                   </View>
                 </View>
               )}
             />
           </View>
-        )
-      }      
-    }
+        );
+      }
+    };
 
-    return (
-        <Page navigation={navigation} route={route}>
-          <Panel>
-              <View>
-                <View style={styles.containetContent}>
-                  {renderView()}
-                </View>
-              </View>
-          </Panel>
-          <View>
-            <Layout style={styles.containerButtons}>
-              <TouchableHighlight style={styles.scanButton} onPress={visibleScan} underlayColor='#F7F9FC'>
-                <View style={styles.button__content}>
-                  {ScanButton()}
-                </View>                
-              </TouchableHighlight>
-              <TouchableHighlight style={styles.historyButton} onPress={visibleHistory} underlayColor='#F7F9FC'>
-              <View style={styles.button__content}>                  
-                  {HistoryButton()}
-                </View> 
-              </TouchableHighlight>
-              <Layout style={styles.radius} level='2'></Layout>
-            </Layout>              
-          </View>
-        </Page>
-    );
+    const hoverColor =
+    themeVariant === 'dark'
+      ? (styles.scanButtonDarkHover as any).color
+      : (styles.scanButtonLightHover as any).color;
+
+  return (
+    <Page navigation={navigation} route={route}>
+      <Panel>
+        <View>
+          <View style={styles.containetContent}>{renderView()}</View>
+        </View>
+      </Panel>
+      <View>
+        <Layout style={styles.containerButtons}>
+          <TouchableHighlight
+            style={styles.scanButton}
+            onPress={visibleScan}
+            underlayColor={hoverColor}>
+            <View style={styles.button__content}>{ScanButton()}</View>
+          </TouchableHighlight>
+          <TouchableHighlight
+            style={styles.historyButton}
+            onPress={visibleHistory}
+            underlayColor={hoverColor}>
+            <View style={styles.button__content}>{HistoryButton()}</View>
+          </TouchableHighlight>
+          <Layout style={styles.radius} level="2"></Layout>
+        </Layout>
+      </View>
+    </Page>
+  );
 };
 
-const styles = StyleSheet.create({
+const themedStyles = StyleService.create({
   cameraContainer: {
     display: 'flex',
     flex: 1,
@@ -204,6 +244,12 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     justifyContent: 'space-between',
   },
+  scanButtonDarkHover: {
+    color: 'color-basic-700',
+  },
+  scanButtonLightHover: {
+    color: 'color-basic-300',
+  },
   rightItem: {
     alignItems: 'flex-end',
     justifyContent: 'space-between',
@@ -223,7 +269,7 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
   },
   button__content: {
-    flexDirection: 'row',  
+    flexDirection: 'row',
   },
   historyButton: {
     height: 45,
@@ -247,8 +293,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   bold: {
-    fontWeight: 'bold'
-  }
+    fontWeight: 'bold',
+  },
 });
 
 export default ScanScreen;
