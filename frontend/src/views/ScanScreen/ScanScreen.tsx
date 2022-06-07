@@ -13,12 +13,16 @@ import {
   ImageProps,
   FlatList,
   TouchableHighlight,
-  Dimensions
+  Dimensions,
+  Linking,
+  TouchableOpacity
 } from 'react-native';
 import { Page, Panel } from '../../components';
 import { ThemeContext } from '../../contexts/theme.context';
 import { RootStackParamList } from '../../utils/types';
 import { SERVER } from '../../utils/constans';
+import QRCodeScanner from 'react-native-qrcode-scanner';
+import { RNCamera } from 'react-native-camera';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Scan'>;
 
@@ -123,11 +127,28 @@ const ScanScreen = ({ navigation, route }: Props) => {
       }
     }
 
+    const onSuccess = (e:any) => {
+      Linking.openURL(e.data).catch(err =>
+        console.error('An error occured', err)
+      );
+    }
+
     const renderView = () => {
       if(visibleView) {
         return (
           <View>
-            <Text>SCAN</Text>
+            <QRCodeScanner
+              onRead={onSuccess}
+              flashMode={RNCamera.Constants.FlashMode.torch}
+              bottomContent={
+                <TouchableOpacity style={styles.buttonTouchable}>
+                  <Text style={styles.buttonText}>OK. Got it!</Text>
+                </TouchableOpacity>
+              }
+              containerStyle={styles.cameraContainer}
+              cameraStyle={styles.camera}
+              showMarker={true}
+            />
           </View>
         )
       } else {
@@ -183,6 +204,26 @@ const ScanScreen = ({ navigation, route }: Props) => {
 };
 
 const styles = StyleSheet.create({
+  cameraContainer: {
+    display: 'flex',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+  },
+  camera: {
+    width: Dimensions.get('window').width * 0.65,
+    height: Dimensions.get('window').height * 0.5,
+    // height: '100%',
+    // width: '100%',
+  },
+  buttonText: {
+    fontSize: 21,
+    color: 'rgb(0,122,255)'
+  },
+  buttonTouchable: {
+    padding: 16
+  },
   containetContent: {
     flexBasis: '65%',
   },
