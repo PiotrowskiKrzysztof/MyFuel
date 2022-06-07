@@ -30,50 +30,7 @@ const ScanScreen = ({ navigation, route }: Props) => {
     const theme = useTheme();
     const { theme: themeVariant } = useContext(ThemeContext);
     const [visibleView, setVisibleView] = useState(true);
-    const [history, setHistory] = useState([
-      {
-        id: '236K20/9401/19',
-        value: '135.55',
-        date: '21/04/2022 19:31',
-        street: 'Kawaleryjska 27',
-        city: 'Białystok'
-      },
-      {
-        id: '236K21/9401/19',
-        value: '220.00',
-        date: '21/04/2022 19:31',
-        street: 'Kawaleryjska 27',
-        city: 'Białystok'
-      },
-      {
-        id: '236K22/9401/19',
-        value: '21.37',
-        date: '21/04/2022 19:31',
-        street: 'Kawaleryjska 27',
-        city: 'Białystok'
-      },
-      {
-        id: '236K23/9401/19',
-        value: '212.92',
-        date: '21/04/2022 19:31',
-        street: 'Kawaleryjska 27',
-        city: 'Białystok'
-      },
-      {
-        id: '236K24/9401/19',
-        value: '82.31',
-        date: '21/04/2022 19:31',
-        street: 'Kawaleryjska 27',
-        city: 'Białystok'
-      },
-      {
-        id: '236K25/9401/19',
-        value: '822.31',
-        date: '21/04/2022 19:31',
-        street: 'Kawaleryjska 27',
-        city: 'Białystok'
-      },
-    ]);
+    const [history, setHistory] = useState();
 
     useEffect(() => {
       fetch(`${SERVER}/users/${1}/invoices`)
@@ -128,9 +85,16 @@ const ScanScreen = ({ navigation, route }: Props) => {
     }
 
     const onSuccess = (e:any) => {
-      Linking.openURL(e.data).catch(err =>
-        console.error('An error occured', err)
-      );
+      const data = JSON.parse(e.data);
+      console.log(data);
+      fetch(`${SERVER}/invoices`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+
     }
 
     const renderView = () => {
@@ -148,6 +112,7 @@ const ScanScreen = ({ navigation, route }: Props) => {
               containerStyle={styles.cameraContainer}
               cameraStyle={styles.camera}
               showMarker={true}
+              reactivateTimeout={1000}
             />
           </View>
         )
